@@ -38,13 +38,25 @@
     };
 </script>
 
-<button class="" on:click={onBack}>Back</button>
 {#if post}
     <div class="columns">
-        <div class="column">
-            <h4 class="title is-4">
+        <div class="column is-narrow">
+            <div class="button" on:click={onBack}>
+                <span class="icon-text">
+                    <span class="icon">
+                        <ion-icon name="chevron-back-outline" />
+                    </span>
+                    <span>Back</span>
+                </span>
+            </div>
+        </div>
+        <div class="column is-narrow">
+            <h4 class="title is-3">
                 {post.title}
             </h4>
+            <p>
+                (<a href={post.content}> {new URL(post.content).hostname}</a>)
+            </p>
         </div>
         <div class="column">
             <span class="tag is-primary">
@@ -52,7 +64,6 @@
             </span>
         </div>
     </div>
-    <a href={post.content}>Link</a>
 
     <form class="columns" on:submit|preventDefault={createComment}>
         <div class="field column">
