@@ -8,6 +8,10 @@
     let toSignIn = false;
 
     onMount(async () => {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        openPost = urlParams.get("post");
+
         let post_list = [];
         const list = await pb.collection("posts").getList(1, 50, {
             expand: "user",
@@ -35,9 +39,6 @@
     };
 
     let posts = [];
-
-    //const queryString = window.location.search;
-    //const urlParams = new URLSearchParams(queryString);
 
     let openPost = null;
     let newPost = false;
@@ -257,8 +258,9 @@
                             </p>
                         </div>
                         <div class="column">
+                            <!-- TODO: clickable -->
                             <span class="tag is-primary">
-                                {p.expand.user.username}
+                                <a>{p.expand.user.username}</a>
                             </span>
                         </div>
                     </div>
