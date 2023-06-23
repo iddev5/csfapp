@@ -3,6 +3,7 @@
     import { pb, currentUser, currentPublicUser } from "./lib/pocketbase";
     import Post from "./Post.svelte";
     import Login from "./Login.svelte";
+    import UserProfile from "./UserProfile.svelte";
 
     let toLogin = false;
     let toSignIn = false;
@@ -11,6 +12,7 @@
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         openPost = urlParams.get("post");
+        openUser = urlParams.get("user");
 
         let post_list = [];
         const list = await pb.collection("posts").getList(1, 50, {
@@ -41,6 +43,7 @@
     let posts = [];
 
     let openPost = null;
+    let openUser = null;
     let newPost = false;
     let newPostTitle = "";
     let newPostUrl = "";
@@ -233,6 +236,8 @@
 
             {#if openPost != null}
                 <Post id={openPost} onBack={() => (openPost = null)} />
+            {:else if openUser != null}
+                <UserProfile id={openUser} onBack={() => (openUser = null)} />
             {:else}
                 {#each posts as p, i}
                     <div class="columns">
