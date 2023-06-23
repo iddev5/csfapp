@@ -171,7 +171,7 @@
 
         <div class="column">
             {#if $currentUser}
-                <p>Signed in as {$currentUser.username}</p>
+                <!--p>Signed in as {$currentUser.username}</p-->
 
                 <div class="modal" class:is-active={newPost}>
                     <div class="modal-background" />
@@ -241,7 +241,7 @@
                         <div class="column is-narrow">
                             <span class="icon-text">
                                 <span class="icon" on:click={upvote(p)}>
-                                    <ion-icon name="chevron-up-outline" />
+                                    <ion-icon name="arrow-up-outline" />
                                 </span>
                                 <span>{p.votes || 0}</span>
                             </span>
