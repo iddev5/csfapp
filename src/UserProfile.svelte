@@ -21,7 +21,9 @@
             filter: `user="${id}"`,
             sort: "-created",
         });
-        postList.items.map((post) => (post.expand = { user: id }));
+        postList.items.map(
+            (post) => (post.expand = { user: { username: username } })
+        );
         posts = postList.items;
 
         const voteList = await pb.collection("votes").getList(1, 10, {
@@ -40,7 +42,6 @@
         activity.sort((a, b) => {
             return new Date(b.created) - new Date(a.created);
         });
-        console.log(activity);
         activity = activity;
     });
 </script>
