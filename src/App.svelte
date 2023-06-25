@@ -4,6 +4,7 @@
     import Post from "./Post.svelte";
     import Login from "./Login.svelte";
     import UserProfile from "./UserProfile.svelte";
+    import PostList from "./PostList.svelte";
 
     let toLogin = false;
     let toSignIn = false;
@@ -239,37 +240,7 @@
             {:else if openUser != null}
                 <UserProfile id={openUser} onBack={() => (openUser = null)} />
             {:else}
-                {#each posts as p, i}
-                    <div class="columns">
-                        <div class="column is-narrow">
-                            <p class="title is-large">{i + 1}</p>
-                        </div>
-                        <div class="column is-narrow">
-                            <span class="icon-text">
-                                <span class="icon" on:click={upvote(p)}>
-                                    <ion-icon name="arrow-up-outline" />
-                                </span>
-                                <span>{p.votes || 0}</span>
-                            </span>
-                        </div>
-                        <div class="column is-narrow">
-                            <p on:click={() => (openPost = p.id)}>
-                                {p.title}
-                            </p>
-                            <p>
-                                (<a href={p.content}>
-                                    {new URL(p.content).hostname}</a
-                                >)
-                            </p>
-                        </div>
-                        <div class="column">
-                            <!-- TODO: clickable -->
-                            <span class="tag is-primary">
-                                <a>{p.expand.user.username}</a>
-                            </span>
-                        </div>
-                    </div>
-                {/each}
+                <PostList {posts} onOpenPost={(p) => (openPost = p.id)} />
             {/if}
         </div>
     {/if}
