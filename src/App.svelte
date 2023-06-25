@@ -1,6 +1,11 @@
 <script>
     import { onMount } from "svelte";
-    import { pb, currentUser, currentPublicUser } from "./lib/pocketbase";
+    import {
+        pb,
+        currentUser,
+        currentPublicUser,
+        getCurrentPublicUser,
+    } from "./lib/pocketbase";
     import Post from "./Post.svelte";
     import Login from "./Login.svelte";
     import UserProfile from "./UserProfile.svelte";
@@ -14,6 +19,8 @@
         const urlParams = new URLSearchParams(queryString);
         openPost = urlParams.get("post");
         openUser = urlParams.get("user");
+
+        currentPublicUser.set(await getCurrentPublicUser());
 
         let post_list = [];
         const list = await pb.collection("posts").getList(1, 50, {
