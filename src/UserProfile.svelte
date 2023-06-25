@@ -4,14 +4,19 @@
     import { onMount } from "svelte";
     import PostList from "./PostList.svelte";
 
-    export let id;
+    export let username;
     export let onBack;
+    let id = undefined;
     let user = undefined;
     let posts = [];
     let activity = [];
 
     onMount(async () => {
-        user = await pb.collection("publicusers").getOne(id);
+        user = await pb
+            .collection("publicusers")
+            .getFirstListItem(`username="${username}"`, {});
+        id = user.id;
+
         const postList = await pb.collection("posts").getList(1, 10, {
             filter: `user="${id}"`,
             sort: "-created",

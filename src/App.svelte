@@ -245,7 +245,10 @@
             {#if openPost != null}
                 <Post id={openPost} onBack={() => (openPost = null)} />
             {:else if openUser != null}
-                <UserProfile id={openUser} onBack={() => (openUser = null)} />
+                <UserProfile
+                    username={openUser}
+                    onBack={() => (openUser = null)}
+                />
             {:else}
                 <PostList {posts} onOpenPost={(p) => (openPost = p.id)} />
             {/if}
