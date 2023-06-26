@@ -83,7 +83,6 @@
                 class="tag is-primary mt-2"
                 on:click={() => setUser(post.expand.user?.username)}
             >
-                <!-- TODO: clickable -->
                 {post.expand.user?.username ?? " "}
             </span>
         </div>
