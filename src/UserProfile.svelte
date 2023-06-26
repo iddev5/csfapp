@@ -46,23 +46,23 @@
     });
 </script>
 
-{#if user}
-    <div class="columns">
-        <div class="column is-narrow">
-            <div class="button" on:click={onBack}>
-                <span class="icon-text">
-                    <span class="icon">
-                        <ion-icon name="chevron-back-outline" />
-                    </span>
-                    <span>Back</span>
+<div class="columns">
+    <div class="column is-narrow">
+        <div class="button" on:click={onBack}>
+            <span class="icon-text">
+                <span class="icon">
+                    <ion-icon name="chevron-back-outline" />
                 </span>
-            </div>
+                <span>Back</span>
+            </span>
         </div>
+    </div>
+    {#if user}
         <div class="column">
             <p class="title is-large">{user.username}</p>
         </div>
-    </div>
-{/if}
+    {/if}
+</div>
 
 <div class="columns">
     <div class="column">
