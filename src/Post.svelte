@@ -1,7 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import { pb, currentPublicUser } from "./lib/pocketbase";
-    import { currentPostId } from "./lib/csf";
+    import { currentPostId, currentUserName } from "./lib/csf";
     import { timeAgo } from "./lib/csf";
     import Comment from "./Comment.svelte";
 
@@ -39,6 +39,12 @@
     function onBack() {
         currentPostId.set(null);
     }
+
+    function setUser(u) {
+        // TODO: borked navigation
+        currentPostId.set(null);
+        currentUserName.set(u);
+    }
 </script>
 
 {#if post}
@@ -73,9 +79,12 @@
             </div>
         </div>
         <div class="column">
-            <span class="tag is-primary mt-2">
+            <span
+                class="tag is-primary mt-2"
+                on:click={() => setUser(post.expand.user?.username)}
+            >
                 <!-- TODO: clickable -->
-                <a>{post.expand.user?.username ?? " "}</a>
+                {post.expand.user?.username ?? " "}
             </span>
         </div>
     </div>

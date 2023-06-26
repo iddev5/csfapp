@@ -1,11 +1,15 @@
 <script>
     import { pb, currentPublicUser } from "./lib/pocketbase";
-    import { currentPostId } from "./lib/csf";
+    import { currentPostId, currentUserName } from "./lib/csf";
 
     export let posts;
 
     function onOpenPost(p) {
         currentPostId.set(p.id);
+    }
+
+    function setUser(u) {
+        currentUserName.set(u);
     }
 
     const upvote = async (post) => {
@@ -53,9 +57,10 @@
             </p>
         </div>
         <div class="column">
-            <!-- TODO: clickable -->
-            <span class="tag is-primary">
-                <a>{p.expand.user.username}</a>
+            <span
+                class="tag is-primary"
+                on:click={() => setUser(p.expand.user.username)}
+                >{p.expand.user.username}
             </span>
         </div>
     </div>

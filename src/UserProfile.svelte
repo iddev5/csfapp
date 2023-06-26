@@ -1,6 +1,6 @@
 <script>
     import { pb } from "./lib/pocketbase";
-    import { currentUserName, timeAgo } from "./lib/csf";
+    import { currentUserName, currentPostId, timeAgo } from "./lib/csf";
     import { onMount } from "svelte";
     import PostList from "./PostList.svelte";
 
@@ -11,6 +11,10 @@
 
     function onBack() {
         currentUserName.set(null);
+    }
+
+    function setPost(p) {
+        currentPostId.set(p);
     }
 
     onMount(async () => {
@@ -82,9 +86,11 @@
                         </p>
                     </div>
                     <div class="column is-narrow">
-                        <!-- TODO: clickable -->
-                        <span class="tag is-primary"
-                            >{act.expand.post.title}</span
+                        <span
+                            class="tag is-primary"
+                            on:click={() => setPost(act.expand.post.id)}
+                        >
+                            {act.expand.post.title}</span
                         >
                     </div>
                     <div class="column is-narrow">
@@ -97,7 +103,9 @@
                         <p>{user.username} commented on post</p>
                     </div>
                     <div class="column is-narrow">
-                        <span class="tag is-primary"
+                        <span
+                            class="tag is-primary"
+                            on:click={() => setPost(act.expand.post.id)}
                             >{act.expand.post.title}</span
                         >
                     </div>
