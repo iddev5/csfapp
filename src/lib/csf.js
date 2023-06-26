@@ -1,3 +1,8 @@
+import { writable } from "svelte/store";
+
+export const user = writable(null);
+export const post = writable(null);
+
 export function timeAgo(input) {
     const date = input instanceof Date ? input : new Date(input);
     const formatter = new Intl.RelativeTimeFormat("en");

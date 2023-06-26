@@ -6,6 +6,7 @@
         currentPublicUser,
         getCurrentPublicUser,
     } from "./lib/pocketbase";
+    import { user, post } from "./lib/csf";
     import Post from "./Post.svelte";
     import Login from "./Login.svelte";
     import UserProfile from "./UserProfile.svelte";
@@ -17,8 +18,8 @@
     onMount(async () => {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
-        openPost = urlParams.get("post");
-        openUser = urlParams.get("user");
+        post.set(urlParams.get("post"));
+        user.set(urlParams.get("user"));
 
         currentPublicUser.set(await getCurrentPublicUser());
 
@@ -50,9 +51,6 @@
     };
 
     let posts = [];
-
-    let openPost = null;
-    let openUser = null;
     let newPost = false;
     let newPostTitle = "";
     let newPostUrl = "";
@@ -250,15 +248,12 @@
                 </div>
             {/if}
 
-            {#if openPost != null}
-                <Post id={openPost} onBack={() => (openPost = null)} />
-            {:else if openUser != null}
-                <UserProfile
-                    username={openUser}
-                    onBack={() => (openUser = null)}
-                />
+            {#if $post}
+                <Post />
+            {:else if $user}
+                <UserProfile />
             {:else}
-                <PostList {posts} onOpenPost={(p) => (openPost = p.id)} />
+                <PostList {posts} />
             {/if}
         </div>
     {/if}

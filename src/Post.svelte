@@ -1,14 +1,12 @@
 <script>
     import { onMount } from "svelte";
     import { pb, currentPublicUser } from "./lib/pocketbase";
+    import { post as id } from "./lib/csf";
     import { timeAgo } from "./lib/csf";
     import Comment from "./Comment.svelte";
 
-    export let id;
-    export let onBack;
-
     onMount(async () => {
-        post = await pb.collection("posts").getOne(id, {
+        post = await pb.collection("posts").getOne($id, {
             expand: "user",
             fields: "id,title,content,user,created",
         });
@@ -30,13 +28,17 @@
     let createComment = async () => {
         const comment = await pb.collection("comments").create({
             text: newCommentText,
-            post: id,
+            post: post.id,
             user: $currentPublicUser.id,
         });
 
         newCommentText = "";
         comments = [...comments, comment];
     };
+
+    function onBack() {
+        id.set(null);
+    }
 </script>
 
 {#if post}

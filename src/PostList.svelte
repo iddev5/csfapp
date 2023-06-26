@@ -1,8 +1,12 @@
 <script>
     import { pb, currentPublicUser } from "./lib/pocketbase";
+    import { post } from "./lib/csf";
 
     export let posts;
-    export let onOpenPost;
+
+    function onOpenPost(p) {
+        post.set(p.id);
+    }
 
     const upvote = async (post) => {
         const vote = await pb.collection("votes").getFullList({

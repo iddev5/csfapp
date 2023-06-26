@@ -1,20 +1,22 @@
 <script>
     import { pb } from "./lib/pocketbase";
-    import { timeAgo } from "./lib/csf";
+    import { user as username, timeAgo } from "./lib/csf";
     import { onMount } from "svelte";
     import PostList from "./PostList.svelte";
 
-    export let username;
-    export let onBack;
     let id = undefined;
     let user = undefined;
     let posts = [];
     let activity = [];
 
+    function onBack() {
+        username.set(null);
+    }
+
     onMount(async () => {
         user = await pb
             .collection("publicusers")
-            .getFirstListItem(`username="${username}"`, {});
+            .getFirstListItem(`username="${$username}"`, {});
         id = user.id;
 
         const postList = await pb.collection("posts").getList(1, 10, {
@@ -22,7 +24,7 @@
             sort: "-created",
         });
         postList.items.map(
-            (post) => (post.expand = { user: { username: username } })
+            (post) => (post.expand = { user: { username: $username } })
         );
         posts = postList.items;
 
