@@ -103,7 +103,11 @@
     });
 </script>
 
-<nav class="navbar is-danger" role="navigation" aria-label="main-navigation">
+<nav
+    class="navbar is-danger is-fixed-top pr-6"
+    role="navigation"
+    aria-label="main-navigation"
+>
     <div class="navbar-menu">
         <div class="navbar-brand">
             <!-- TODO: is-active -->
@@ -166,12 +170,15 @@
         }}
     />
 {:else if toSignIn}
-    <Login toSignIn="true" onCancel={() => (toSignIn = false)} />
+    <Login toSignIn={true} onCancel={() => (toSignIn = false)} />
 {/if}
 
 <div class="columns">
     {#if !toSignIn && !toLogin}
-        <div class="column is-2">
+        <div
+            class="column is-2"
+            style="height:100%; position:sticky; top: 4rem"
+        >
             <aside class="menu">
                 <ul class="menu-list">
                     <li><a>NEWS BOARD</a></li>
