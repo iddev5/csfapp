@@ -1,11 +1,11 @@
 <script>
     import { pb, currentPublicUser } from "./lib/pocketbase";
-    import { post } from "./lib/csf";
+    import { currentPostId } from "./lib/csf";
 
     export let posts;
 
     function onOpenPost(p) {
-        post.set(p.id);
+        currentPostId.set(p.id);
     }
 
     const upvote = async (post) => {

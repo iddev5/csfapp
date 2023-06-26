@@ -1,12 +1,12 @@
 <script>
     import { onMount } from "svelte";
     import { pb, currentPublicUser } from "./lib/pocketbase";
-    import { post as id } from "./lib/csf";
+    import { currentPostId } from "./lib/csf";
     import { timeAgo } from "./lib/csf";
     import Comment from "./Comment.svelte";
 
     onMount(async () => {
-        post = await pb.collection("posts").getOne($id, {
+        post = await pb.collection("posts").getOne($currentPostId, {
             expand: "user",
             fields: "id,title,content,user,created",
         });
@@ -37,7 +37,7 @@
     };
 
     function onBack() {
-        id.set(null);
+        currentPostId.set(null);
     }
 </script>
 
