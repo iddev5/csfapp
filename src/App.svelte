@@ -25,12 +25,14 @@
         let post_list = [];
         const list = await pb.collection("posts").getList(1, 50, {
             expand: "user",
+            $autoCancel: false,
         });
         post_list = list.items;
 
         const votes = await pb.collection("votes").getFullList({
             filter: post_list.map((p) => `post="${p.id}"`).join("||"),
             field: "post",
+            $autoCancel: false,
         });
 
         const post_votes = {};
@@ -40,7 +42,6 @@
         post_list.map((p) => (p.votes = post_votes[p.id] ?? 0));
         // Sort the posts according to decreasing votes
         sortPosts(post_list);
-
         posts = post_list;
     });
 
