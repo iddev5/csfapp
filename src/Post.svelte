@@ -19,10 +19,16 @@
             expand: "user",
         });
         comments = commentList.items;
+
+        const commentListCount = await pb.collection("comments").getList(1, 1, {
+            filter: `post="${post.id}"`,
+        });
+        commentCount = commentListCount.totalItems;
     });
 
     let post = undefined;
     let comments = [];
+    let commentCount = 0;
     let newCommentText = "";
 
     let createComment = async () => {
@@ -71,8 +77,7 @@
                         >)
                     </p>
                 </div>
-                <!-- TODO: correct comments count -->
-                <div class="column is-narrow">{comments.length} comments</div>
+                <div class="column is-narrow">{commentCount} comments</div>
                 <div class="column is-narrow">
                     Posted {timeAgo(post.created)}
                 </div>
