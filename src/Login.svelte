@@ -1,8 +1,9 @@
 <script>
     import { pb } from "./lib/pocketbase";
+    import { location, pop } from "svelte-spa-router";
 
-    export let toSignIn = false;
-    export let onCancel;
+    export let params = {};
+    let toSignIn = $location === "/signup";
     let username = "";
     let email = "";
     let password = "";
@@ -89,7 +90,7 @@
                     >
                 </div>
                 <div class="control">
-                    <button class="button is-link is-light" on:click={onCancel}
+                    <button class="button is-link is-light" on:click={pop}
                         >Cancel</button
                     >
                 </div>
@@ -128,7 +129,7 @@
                     >
                 </div>
                 <div class="control">
-                    <button class="button is-link is-light" on:click={onCancel}
+                    <button class="button is-link is-light" on:click={pop}
                         >Cancel</button
                     >
                 </div>
