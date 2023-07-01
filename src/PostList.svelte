@@ -1,15 +1,15 @@
 <script>
     import { pb, currentPublicUser } from "./lib/pocketbase";
-    import { currentPostId, currentUserName } from "./lib/csf";
+    import { push } from "svelte-spa-router";
 
     export let posts;
 
     function onOpenPost(p) {
-        currentPostId.set(p.id);
+        push(`/post/${p.id}`);
     }
 
     function setUser(u) {
-        currentUserName.set(u);
+        push(`/user/${u}`);
     }
 
     const upvote = async (post) => {

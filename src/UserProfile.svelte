@@ -1,26 +1,28 @@
 <script>
     import { pb } from "./lib/pocketbase";
-    import { currentUserName, currentPostId, timeAgo } from "./lib/csf";
+    import { timeAgo } from "./lib/csf";
     import { onMount } from "svelte";
+    import { push, pop } from "svelte-spa-router";
     import PostList from "./PostList.svelte";
 
+    export let params = {};
     let id = undefined;
     let user = undefined;
     let posts = [];
     let activity = [];
 
     function onBack() {
-        currentUserName.set(null);
+        pop();
     }
 
     function setPost(p) {
-        currentPostId.set(p);
+        push(`/post/${p}`);
     }
 
     onMount(async () => {
         user = await pb
             .collection("publicusers")
-            .getFirstListItem(`username="${$currentUserName}"`, {});
+            .getFirstListItem(`username="${params.username}"`, {});
         id = user.id;
 
         const postList = await pb.collection("posts").getList(1, 10, {
@@ -28,7 +30,7 @@
             sort: "-created",
         });
         postList.items.map(
-            (post) => (post.expand = { user: { username: $currentUserName } })
+            (post) => (post.expand = { user: { username: params.username } })
         );
         posts = postList.items;
 
@@ -73,7 +75,7 @@
 <div class="columns">
     <div class="column">
         <p class="title is-large">Posts</p>
-        <PostList {posts} onOpenPost={0} />
+        <PostList {posts} />
     </div>
     <div class="column">
         <p class="title is-large">Activity</p>

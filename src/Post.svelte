@@ -1,12 +1,12 @@
 <script>
     import { onMount } from "svelte";
     import { pb, currentPublicUser } from "./lib/pocketbase";
-    import { currentPostId, currentUserName } from "./lib/csf";
     import { timeAgo } from "./lib/csf";
+    import { push, pop } from "svelte-spa-router";
     import Comment from "./Comment.svelte";
 
     onMount(async () => {
-        post = await pb.collection("posts").getOne($currentPostId, {
+        post = await pb.collection("posts").getOne(params.id, {
             expand: "user",
             fields: "id,title,content,user,created",
         });
@@ -26,6 +26,7 @@
         commentCount = commentListCount.totalItems;
     });
 
+    export let params = {};
     let post = undefined;
     let comments = [];
     let commentCount = 0;
@@ -43,13 +44,12 @@
     };
 
     function onBack() {
-        currentPostId.set(null);
+        pop();
     }
 
     function setUser(u) {
         // TODO: borked navigation
-        currentPostId.set(null);
-        currentUserName.set(u);
+        push(`/user/${u}`);
     }
 </script>
 
