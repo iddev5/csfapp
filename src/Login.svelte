@@ -3,17 +3,17 @@
     import { location, pop } from "svelte-spa-router";
 
     export let params = {};
-    let toSignIn = $location === "/signup";
+    let toSignUp = $location === "/signup";
     let username = "";
     let email = "";
     let password = "";
     let passwordConfirm = "";
 
-    const login = async () => {
+    const signIn = async () => {
         await pb.collection("users").authWithPassword(username, password);
     };
 
-    const signIn = async () => {
+    const signUp = async () => {
         const user = await pb.collection("users").create({
             username,
             password,
@@ -32,11 +32,10 @@
         email = "";
         password = "";
         passwordConfirm = "";
-        toSignIn = false;
     };
 </script>
 
-{#if toSignIn != false}
+{#if toSignUp}
     <div class="column is-4 is-offset-4">
         <form class="container box p-6 m-6" on:submit|preventDefault>
             <div class="field">
@@ -85,8 +84,8 @@
             </div>
             <div class="field is-grouped">
                 <div class="control">
-                    <button class="button is-link" on:click={signIn}
-                        >Sign In</button
+                    <button class="button is-link" on:click={signUp}
+                        >Sign Up</button
                     >
                 </div>
                 <div class="control">
@@ -124,9 +123,9 @@
             </div>
             <div class="field is-grouped">
                 <div class="control">
-                    <button class="button is-link" on:click={login}
-                        >Login</button
-                    >
+                    <button class="button is-link" on:click={signIn}
+                        >Sign In
+                    </button>
                 </div>
                 <div class="control">
                     <button class="button is-link is-light" on:click={pop}

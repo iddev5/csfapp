@@ -131,13 +131,13 @@
                                 class="button is-link"
                                 on:click={() => push("/signin")}
                             >
-                                Login
+                                Sign In
                             </div>
                             <div
                                 class="button is-link is-light"
                                 on:click={() => push("/signup")}
                             >
-                                Sign In
+                                Sign Up
                             </div>
                         </div>
                     {/if}
