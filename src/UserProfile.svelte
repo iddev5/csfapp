@@ -66,6 +66,14 @@
         </div>
     </div>
     {#if user}
+        <div class="column is-narrow">
+            <figure class="image is-48x48">
+                <img
+                    src="https://api.dicebear.com/5.3/shapes/svg?seed={user.username}"
+                    alt="avatar"
+                />
+            </figure>
+        </div>
         <div class="column">
             <p class="title is-large">{user.username}</p>
         </div>
