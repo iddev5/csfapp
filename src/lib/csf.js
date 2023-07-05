@@ -18,3 +18,14 @@ export function timeAgo(input) {
         }
     }
 }
+
+export function avatar(user) {
+    if (user) {
+        // TODO: use dicebear pkg
+        return user.avatar
+            ? user.avatar
+            : `https://api.dicebear.com/5.3/shapes/svg?seed=${user.username}`;
+    }
+
+    return "";
+}

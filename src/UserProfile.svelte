@@ -1,6 +1,6 @@
 <script>
     import { pb } from "./lib/pocketbase";
-    import { timeAgo } from "./lib/csf";
+    import { avatar, timeAgo } from "./lib/csf";
     import { onMount } from "svelte";
     import { push, pop } from "svelte-spa-router";
     import PostList from "./PostList.svelte";
@@ -68,10 +68,7 @@
     {#if user}
         <div class="column is-narrow">
             <figure class="image is-48x48">
-                <img
-                    src="https://api.dicebear.com/5.3/shapes/svg?seed={user.username}"
-                    alt="avatar"
-                />
+                <img src={avatar(user)} alt="avatar" />
             </figure>
         </div>
         <div class="column">

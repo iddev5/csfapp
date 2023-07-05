@@ -1,5 +1,6 @@
 <script>
     import { pb, currentPublicUser } from "./lib/pocketbase";
+    import { avatar } from "./lib/csf";
     import { onMount } from "svelte";
 
     export let comment = undefined;
@@ -35,12 +36,7 @@
     <p class="column is-{indent}" />
     <div class="column is-narrow">
         <figure class="image is-48x48">
-            <!-- TODO: use dicebear pkg -->
-            <img
-                src="https://api.dicebear.com/5.3/shapes/svg?seed={comment
-                    .expand.user.username}"
-                alt="avatar"
-            />
+            <img src={avatar(comment.expand.user)} alt="avatar" />
         </figure>
     </div>
     <p class="column is-narrow">

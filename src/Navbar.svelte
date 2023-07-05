@@ -1,5 +1,6 @@
 <script>
     import { pb, currentUser } from "./lib/pocketbase";
+    import { avatar } from "./lib/csf";
     import { push } from "svelte-spa-router";
 </script>
 
@@ -37,7 +38,7 @@
                             <div class="button is-danger">
                                 <figure class="image is-32x32">
                                     <img
-                                        src="https://api.dicebear.com/5.3/shapes/svg?seed={$currentUser.username}"
+                                        src={avatar($currentUser)}
                                         class="is-rounded"
                                         alt="avatar"
                                     />
