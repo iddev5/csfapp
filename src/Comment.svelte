@@ -37,7 +37,7 @@
         <figure class="image is-48x48">
             <!-- TODO: use dicebear pkg -->
             <img
-                src="https://api.dicebear.com/5.3/identicon/svg?seed={comment
+                src="https://api.dicebear.com/5.3/shapes/svg?seed={comment
                     .expand.user.username}"
                 alt="avatar"
             />
