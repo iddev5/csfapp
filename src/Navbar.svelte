@@ -34,6 +34,15 @@
                             >
                                 Sign Out
                             </div>
+                            <div class="button is-danger">
+                                <figure class="image is-32x32">
+                                    <img
+                                        src="https://api.dicebear.com/5.3/shapes/svg?seed={$currentUser.username}"
+                                        class="is-rounded"
+                                        alt="avatar"
+                                    />
+                                </figure>
+                            </div>
                         </div>
                     {:else}
                         <div class="buttons">
