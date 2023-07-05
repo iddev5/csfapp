@@ -147,79 +147,59 @@
     </div>
 </nav>
 
-<div class="columns">
-    <div class="column is-2" style="height:100%; position:sticky; top: 4rem">
-        <aside class="menu">
-            <ul class="menu-list">
-                <li><a>NEWS BOARD</a></li>
-                <li><a>ALL NEWS</a></li>
-                <li><a>TOP OFFERS</a></li>
-                <li><a>TOP GAMES</a></li>
-            </ul>
-        </aside>
+{#if $currentUser}
+    <div class="modal" class:is-active={newPost}>
+        <div class="modal-background" />
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Create new post...</p>
+                <button
+                    class="delete"
+                    aria-label="close"
+                    on:click={() => (newPost = false)}
+                />
+            </header>
+            <section class="modal-card-body">
+                <form on:submit|preventDefault>
+                    <div class="field">
+                        <label class="label">Title</label>
+                        <div class="control">
+                            <input
+                                class="input"
+                                placeholder="Title"
+                                type="text"
+                                bind:value={newPostTitle}
+                            />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Link</label>
+                        <div class="control">
+                            <input
+                                class="input"
+                                placeholder="Link"
+                                type="text"
+                                bind:value={newPostUrl}
+                            />
+                        </div>
+                    </div>
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button class="button is-link" on:click={createPost}
+                                >Create Post</button
+                            >
+                        </div>
+                        <div class="control">
+                            <button
+                                class="button is-link is-light"
+                                on:click={createPostCancel}>Cancel</button
+                            >
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
     </div>
+{/if}
 
-    <div class="column">
-        {#if $currentUser}
-            <!--p>Signed in as {$currentUser.username}</p-->
-
-            <div class="modal" class:is-active={newPost}>
-                <div class="modal-background" />
-                <div class="modal-card">
-                    <header class="modal-card-head">
-                        <p class="modal-card-title">Create new post...</p>
-                        <button
-                            class="delete"
-                            aria-label="close"
-                            on:click={() => (newPost = false)}
-                        />
-                    </header>
-                    <section class="modal-card-body">
-                        <form on:submit|preventDefault>
-                            <div class="field">
-                                <label class="label">Title</label>
-                                <div class="control">
-                                    <input
-                                        class="input"
-                                        placeholder="Title"
-                                        type="text"
-                                        bind:value={newPostTitle}
-                                    />
-                                </div>
-                            </div>
-                            <div class="field">
-                                <label class="label">Link</label>
-                                <div class="control">
-                                    <input
-                                        class="input"
-                                        placeholder="Link"
-                                        type="text"
-                                        bind:value={newPostUrl}
-                                    />
-                                </div>
-                            </div>
-                            <div class="field is-grouped">
-                                <div class="control">
-                                    <button
-                                        class="button is-link"
-                                        on:click={createPost}
-                                        >Create Post</button
-                                    >
-                                </div>
-                                <div class="control">
-                                    <button
-                                        class="button is-link is-light"
-                                        on:click={createPostCancel}
-                                        >Cancel</button
-                                    >
-                                </div>
-                            </div>
-                        </form>
-                    </section>
-                </div>
-            </div>
-        {/if}
-
-        <PostList {posts} />
-    </div>
-</div>
+<PostList {posts} />
