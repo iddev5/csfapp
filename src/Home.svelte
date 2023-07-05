@@ -113,12 +113,6 @@
                     {#if $currentUser}
                         <div class="buttons">
                             <div
-                                class="button is-primary"
-                                on:click={() => (newPost = true)}
-                            >
-                                New Post
-                            </div>
-                            <div
                                 class="button is-link is-light"
                                 on:click={() => pb.authStore.clear()}
                             >
@@ -199,6 +193,10 @@
                 </form>
             </section>
         </div>
+    </div>
+
+    <div class="button is-primary" on:click={() => (newPost = true)}>
+        New Post
     </div>
 {/if}
 

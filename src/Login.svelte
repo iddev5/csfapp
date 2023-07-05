@@ -11,6 +11,7 @@
 
     const signIn = async () => {
         await pb.collection("users").authWithPassword(username, password);
+        pop();
     };
 
     const signUp = async () => {
@@ -21,12 +22,13 @@
             email,
         });
 
-        await login();
-
         await pb.collection("publicusers").create({
             username,
             user: user.id,
+            $autoCancel: false,
         });
+
+        await signIn();
 
         username = "";
         email = "";

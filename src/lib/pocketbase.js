@@ -17,6 +17,7 @@ pb.authStore.onChange(async (auth) => {
     console.log("user changed", auth);
     currentUser.set(pb.authStore.model);
 
+    // TODO: it may trigger even before the public user is created
     const publicUser = await getCurrentPublicUser();
     currentPublicUser.set(publicUser);
 });
