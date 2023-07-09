@@ -4,6 +4,12 @@
     import { push } from "svelte-spa-router";
 </script>
 
+<svelte:body
+    on:click={() => {
+        document.getElementById("dropdown").classList.remove("is-active");
+    }}
+/>
+
 <nav
     class="navbar is-danger is-fixed-top pr-6"
     role="navigation"
@@ -35,14 +41,47 @@
                             >
                                 Sign Out
                             </div>
-                            <div class="button is-danger">
-                                <figure class="image is-32x32">
-                                    <img
-                                        src={avatar($currentUser)}
-                                        class="is-rounded"
-                                        alt="avatar"
-                                    />
-                                </figure>
+                            <div class="dropdown is-right" id="dropdown">
+                                <div class="dropdown-trigger">
+                                    <button
+                                        class="button is-danger"
+                                        aria-haspopup="true"
+                                        aria-controls="dropdown-menu"
+                                        on:click|stopPropagation={() => {
+                                            const menu =
+                                                document.getElementById(
+                                                    "dropdown"
+                                                );
+                                            menu.classList.toggle("is-active");
+                                        }}
+                                    >
+                                        <figure class="image is-32x32">
+                                            <img
+                                                src={avatar($currentUser)}
+                                                class="is-rounded"
+                                                alt="avatar"
+                                            />
+                                        </figure>
+                                    </button>
+                                </div>
+                                <div
+                                    class="dropdown-menu"
+                                    id="dropdown-menu"
+                                    role="menu"
+                                >
+                                    <div class="dropdown-content">
+                                        <a
+                                            href="#/user/{$currentUser.username}"
+                                            class="dropdown-item"
+                                        >
+                                            Profile
+                                        </a>
+                                        <hr class="dropdown-divider" />
+                                        <a href="#" class="dropdown-item">
+                                            Settings
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     {:else}
