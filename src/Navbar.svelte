@@ -77,7 +77,10 @@
                                             Profile
                                         </a>
                                         <hr class="dropdown-divider" />
-                                        <a href="#" class="dropdown-item">
+                                        <a
+                                            href="#/settings"
+                                            class="dropdown-item"
+                                        >
                                             Settings
                                         </a>
                                     </div>
